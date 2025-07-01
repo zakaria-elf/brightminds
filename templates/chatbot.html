@@ -1,0 +1,299 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot Interface</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        .message {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .message.user-message {
+            justify-content: flex-end;
+        }
+
+        .message.bot-message {
+            justify-content: flex-start;
+        }
+
+        .message img.avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin: 0 15px;
+        }
+
+        .message.user-message img.avatar {
+            order: 2;
+        }
+
+        .message span {
+            padding: 12px 18px;
+            border-radius: 25px;
+            background-color: black;
+            max-width: 70%;
+            word-wrap: break-word;
+            display: inline-flex;
+            align-items: center;
+            color: white;
+        }
+
+        .message.user-message span {
+            background-color: #dcf8c6;
+            color: black;
+        }
+
+        .message.bot-message span {
+            background-color: #e6e6fa;
+            color: black;
+        }
+
+        .input-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .input-container input[type="text"] {
+            flex-grow: 1;
+        }
+
+        .input-container button.upload-button {
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            padding: 0 10px;
+        }
+
+        .delete-button {
+            background-color: transparent;
+            border: none;
+            color: white; /* Changed to white for the icon color */
+            cursor: pointer;
+            font-size: 1.5em;
+        }
+
+        .delete-button:hover {
+            color: #ddd; /* Light color on hover for better visibility */
+        }
+
+        .copy-button {
+            background-color: transparent;
+            border: none;
+            color: black; /* Changed from white to black */
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+        
+        #afficher-icon {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 2em; /* Adjust size as needed */
+    cursor: pointer;
+    color: black; /* Adjust color as needed */
+    background: none;
+    border: none;
+}
+
+#afficher-icon:hover {
+    color: gray; /* Hover effect */
+}
+
+
+
+        .hidden {
+    display: none;
+        }
+
+        .copy-button:hover {
+            color: #555; /* Slightly lighter black color on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <ul id="history-list"></ul>
+            <button id="new-chat">+ New chat</button>
+        </div>
+
+        <div class="chat-container">
+            <a href="{{url_for('interface')}}">
+            <div class="header">
+                <img src="{{ url_for('static', filename='ss-removebg-preview.png') }}" alt="Logo" class="logo">
+            </div>
+            </a>
+            <div class="chat-box" id="chat-box"></div>
+
+            <div class="input-container">
+                <input type="text" id="user-input" placeholder="Entrez votre message...">
+                <button id="send-btn">➤</button>
+                <button id="toggle-history"><i class='bx bx-menu'></i></button>
+                <button class="upload-button" id="upload-btn"><i class='bx bx-file-blank'></i></button>
+                <input type="file" id="file-input" style="display: none;">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let history = JSON.parse(localStorage.getItem("chat_history")) || [];
+        let currentConversation = [];
+        let currentTitle = "";
+
+        window.onload = function() {
+            if (localStorage.getItem("current_chat")) {
+                currentConversation = JSON.parse(localStorage.getItem("current_chat"));
+                loadConversation(currentConversation);
+            }
+            updateHistoryUI();
+        }
+
+        document.getElementById("send-btn").addEventListener("click", sendMessage);
+        document.getElementById("user-input").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") sendMessage();
+        });
+        document.getElementById("new-chat").addEventListener("click", newChat);
+        document.getElementById("upload-btn").addEventListener("click", function() {
+            document.getElementById("file-input").click();
+        });
+        document.getElementById("file-input").addEventListener("change", uploadFile);
+
+        document.getElementById("toggle-history").addEventListener("click", function() {
+        document.querySelector(".sidebar").classList.toggle("hidden");
+        });
+
+
+        function sendMessage() {
+            let inputField = document.getElementById("user-input");
+            let message = inputField.value.trim();
+            if (message === "") return;
+
+            addMessageToChat("user", message);
+            currentConversation.push({ role: "user", text: message });
+            saveConversation();
+            inputField.value = "";
+
+            fetch("/ask", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ prompt: message })
+            })
+            .then(response => response.json())
+            .then(data => {
+                addMessageToChat("bot", data.response);
+                currentConversation.push({ role: "bot", text: data.response });
+                saveConversation();
+            })
+            .catch(error => console.error("Erreur d'envoi :", error));
+        }
+
+        function newChat() {
+            let title = prompt("Entrez un titre pour cette conversation :");
+            if (title) {
+                history.push({ title: title, conversation: currentConversation });
+                localStorage.setItem("chat_history", JSON.stringify(history));
+                updateHistoryUI();
+            }
+            currentConversation = [];
+            currentTitle = title || "Nouvelle conversation";
+            document.getElementById("chat-box").innerHTML = "";
+        }
+
+        function uploadFile() {
+            const fileInput = document.getElementById('file-input');
+            const file = fileInput.files[0];
+            if (!file) return;
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            fetch('/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    sendMessage(`Fichier ${file.name} envoyé.`);
+                } else {
+                    alert("Erreur lors de l'envoi du fichier.");
+                }
+            })
+            .catch(error => console.error('Erreur:', error));
+        }
+
+        function saveConversation() {
+            localStorage.setItem("current_chat", JSON.stringify(currentConversation));
+        }
+
+        function loadConversation(conversation) {
+            document.getElementById("chat-box").innerHTML = "";
+            conversation.forEach(msg => addMessageToChat(msg.role, msg.text));
+            currentConversation = conversation;
+        }
+
+        function addMessageToChat(role, text) {
+            let chatBox = document.getElementById("chat-box");
+            let messageDiv = document.createElement("div");
+            messageDiv.classList.add("message", role === "user" ? "user-message" : "bot-message");
+            messageDiv.innerHTML = role === "user" 
+                ? `<span>${text}</span><img src="{{ url_for('static', filename='me.jpg') }}" class="avatar">`
+                : `<img src="{{ url_for('static', filename='her.jpg') }}" class="avatar"> <span>${text}</span>`;
+
+            // Add the "Copy" button next to each message
+            let copyButton = document.createElement("button");
+            copyButton.innerHTML = `<i class="bx bx-copy"></i>`;
+            copyButton.classList.add("copy-button");
+            copyButton.addEventListener("click", function() {
+                copyMessageToClipboard(text);
+            });
+
+            messageDiv.appendChild(copyButton);
+            chatBox.appendChild(messageDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function copyMessageToClipboard(messageText) {
+            navigator.clipboard.writeText(messageText)
+                .then(() => alert("Message copié !"))
+                .catch(err => console.error("Erreur lors de la copie :", err));
+        }
+
+        function updateHistoryUI() {
+            let historyList = document.getElementById("history-list");
+            historyList.innerHTML = "";
+            history.forEach((item, index) => {
+                let listItem = document.createElement("li");
+                listItem.textContent = item.title;
+                listItem.addEventListener("click", () => loadConversation(item.conversation));
+                
+                let deleteButton = document.createElement("button");
+                deleteButton.innerHTML = `<i class='bx bx-message-square-x'></i>`;
+                deleteButton.classList.add("delete-button");
+                deleteButton.addEventListener("click", function(event) {
+                    event.stopPropagation();
+                    deleteConversation(index);
+                });
+
+                listItem.appendChild(deleteButton);
+                historyList.appendChild(listItem);
+            });
+        }
+
+        function deleteConversation(index) {
+            history.splice(index, 1);
+            localStorage.setItem("chat_history", JSON.stringify(history));
+            updateHistoryUI();
+        }
+
+        updateHistoryUI();
+    </script>
+</body>
+</html>

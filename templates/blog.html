@@ -1,0 +1,131 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='blog-courses.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" /></head>
+<body>
+<div class="container">
+   <section class="sub-header">
+       <nav>
+         <a href="{{url_for('interface')}}"><img src="{{ url_for('static', filename='lg.png') }}" ></a>
+         <div class="nav-links" id="navLinks">
+            <i class="fa fa-times" onclick="hideMenu()"></i>
+            <ul>
+                <li><a href="{{url_for('interface')}}">Home</a></li>
+                <li><a href="{{url_for('about')}}">About</a></li>
+                <li><a href="{{url_for('courses')}}">Course</a></li>
+                <li><a href="{{url_for('blog')}}">Blog</a></li>
+                <li><a href="{{url_for('contact')}}">Contact</a></li>
+            </ul>
+         </div>
+         <i class="fa fa-bars" onclick="showMenu()" ></i>
+       </nav>
+<h1> Our Certificate & online programs for 2025/26 </h1>
+</section>
+<!-------------blog page content--------->
+<section class="blog-content">
+    <div class="row">
+        <div class="blog_left">
+            <img src="{{ url_for('static', filename='certificate.jpg') }}" alt="">
+            <h2> Our Certificate & online programs for 2025/26 </h2>
+            <p>
+                Data Engineering
+            </p>
+            <br>
+            <p>
+                Cybersécurité
+            </p>
+            <br>
+            <p>Agronomie
+            </p>
+            <br>
+            <p>
+                Vegetal & animal production
+            </p>
+                          
+            <br>
+            <p>
+                Management
+            </p>
+
+
+
+
+            <div class="comment-box">
+                <h3>leave a comment</h3>
+                <form class="comment-form" action="">
+                    <input type="text" placeholder="enter name">
+                    <input type="email" placeholder="enter email">
+                    <textarea name="" id="" rows="5" placeholder="your comment"></textarea>
+                    <button type="submit" class="hero-btn red-btn">post comment</button>
+                </form>
+            </div>
+
+
+        </div>
+        <div class="blog_right">
+            <h3>post categories</h3>
+            <div>
+                <span>business analytics</span>
+                <span>21</span>
+            </div>
+            <div>
+                <span>data engineer</span>
+                <span>100</span>
+            </div>
+            <div>
+                <span>management</span>
+                <span>120</span>
+            </div>
+            <div>
+                <span>cyber security</span>
+                <span>110</span>
+            </div>
+            <div>
+                <span>envirenment</span>
+                <span>80</span>
+            </div>
+            <div>
+                <span>animal & vegetal production</span>
+                <span>90</span>
+            </div>
+        </div>
+    </div>
+
+</section>
+<br>
+<br>
+<br><br>
+<br><br>
+
+
+<!----- Footer ------>
+<section class="footer"> 
+    <h4>About US</h4>
+    <P>At BrightMinds Academy, we combine quality education with flexibility through our engaging online courses.<br> Our mission is to empower students everywhere with knowledge, creativity, and confidence—anytime, anywhere.</P>
+<div class="icons">
+    <i class="fa-brands fa-facebook"></i>
+    <i class="fa-brands fa-x-twitter"></i>
+    <i class="fa-brands fa-instagram"></i>
+    <i class="fa-brands fa-tiktok"></i>
+</div>
+</section>
+
+<!----javascript-->
+   <script>
+    var navLinks = document.getElementById("navLinks");
+    function showMenu (){
+        navLinks.style.right = "0";
+    }
+    function hideMenu (){
+        navLinks.style.right = "-200PX";
+    }
+   </script>
+</body>
+</html>

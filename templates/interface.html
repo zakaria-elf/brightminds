@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='interface.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+   <section class="header">
+       <nav>
+         <a href="{{url_for('interface')}}"><img src="{{ url_for('static', filename='lg.png') }}" ></a>
+         <div class="nav-links" id="navLinks">
+            <i class="fa fa-times" onclick="hideMenu()"></i>
+            <ul>
+                <li><a href="{{url_for('interface')}}">Home</a></li>
+                <li><a href="{{url_for('about')}}">About</a></li>
+                <li><a href="{{url_for('courses')}}">Course</a></li>
+                <li><a href="{{url_for('blog')}}">Blog</a></li>
+                <li><a href="{{url_for('contact')}}">Contact</a></li>
+            </ul>
+         </div>
+         <i class="fa fa-bars" onclick="showMenu()" ></i>
+       </nav>
+<div class="text-box">
+    <h1> higher school of technology </h1>
+    <p>من أجل مستقبل مشرق</p>
+    <a href="{{url_for('contact')}}" class="hero-btn">Visit Us To know more</a>
+</div>
+</section>
+
+<section class="course">
+      <h1>Courses we offer</h1>
+      <p >les coures offerts par chaque filliere </p>
+      <div class="row"> 
+        <a href="{{url_for('dut1')}}">
+        <div class="course-col">
+            <h3>DUT first year </h3>
+            <p>Check in </p>
+        </a>
+        </div>
+        <div class="course-col">
+            <a href="{{url_for('dut2')}}">
+            <h3>DUT second year </h3>
+            <p>Check in </p>
+            </div>
+        </a>
+        <div class="course-col">
+            <a href="{{url_for('license')}}">
+             <h3>professional license </h3>
+             <p>Check in </p>
+            </a>
+        </div>
+      </div>
+</section>
+<!-------- campus ------>
+
+<section class="campus">
+    <h1>Our Partners</h1>
+    <p ></p>
+
+    <div class="row">
+        <div class="campus-col">
+          <img src="{{ url_for('static', filename='london.png') }}">
+          <div class="layer">
+            <h3>CADI AYYAD</h3>
+          </div>
+        </div>
+        <div class="campus-col">
+            <img src="{{ url_for('static', filename='newyork.png') }}">
+            <div class="layer">
+              <h3>L'université du Littoral Côte d'Opale</h3>
+            </div>
+         </div>
+         <div class="campus-col">
+            <img src="{{ url_for('static', filename='washington.png') }}">
+            <div class="layer">
+              <h3>OTHER UNIVERSITIES</h3>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- -----facilities------>
+ <section class="facilities">
+    <h1>Our Facilities</h1>
+   
+
+        <div class="row">
+        <div class="facilities-col">
+            <img src="{{ url_for('static', filename='library.png') }}">
+            <h3>Hacktone</h3>
+            <p>welcome to the 1st version of the hackatone dirocted by Mr HAKIM EL MASSARI <br>
+                Enter a world where code is culture, creativity is power, and the signal never sleeps.
+Unlock. Create. Disrupt.
+            </p>
+        </div>
+        <div class="row">
+        <div class="facilities-col">
+            <img src="{{ url_for('static', filename='basketball.png') }}">
+            <h3>Largest Play Ground</h3>
+            <p>Tempo Club is a dynamic football club where passion meets performance. We welcome students of all skill levels to train, compete, and grow together.
+
+                📅 Registration Date: April 20, 2025, at 11:00 AM
+                ⚽ Be part of the team—Join us now!.</p>
+        </div>
+        <div class="row">
+            <div class="facilities-col">
+                <img src="{{ url_for('static', filename='cafeteria.png') }}">
+                <h3>Tasty and Healthy Food</h3>
+                <p>Need a break? Step into our cozy cafeteria — the perfect spot to recharge, relax, and connect.
+
+                    We serve a variety of hot and cold beverages, from rich espresso to refreshing teas, alongside fresh pastries, healthy snacks, and daily specials. Whether you’re here for a quick coffee or a calm moment with your team, our space is designed for comfort and good vibes.</p>
+            </div>
+        </div>
+
+ </section>
+
+ <!-------- testimonials------>
+
+<section class="testimonials">
+    <h1>What Our Student Says</h1>
+    <p><p ></p>
+    <div class="row">
+        <div class="testimonial-col">
+            <img src="{{ url_for('static', filename='user1.jpg') }}">
+        <div>
+            <p>The school website is super easy to use! I can check my schedule, download class notes, and even contact teachers in just a few clicks</p>  
+        <h3>el khayari houssam </h3>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star-o"></i>
+
+         </div>
+        </div>
+        <div class="testimonial-col">
+            <img src="{{ url_for('static', filename='user2.jpg') }}">
+        <div>
+            <p>I use the school site almost every day — it’s fast, clean, and actually helpful</p>  
+        <h3>zakaria el fadili</h3>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star-half-o"></i>
+         </div>
+        </div>
+      </div>
+
+</section>
+
+<!----- call to Action ------>
+
+<section class="cta"> 
+    <h1>Want to check your latest grades?<br>
+        All your notes are available online </h1>
+    <a href="{{url_for('afficher_notes')}}"class="hero-btn">Click here</a>
+</section>
+
+
+<!----- Footer ------>
+<section class="footer"> 
+    <h4>About US</h4>
+    <P>At BrightMinds Academy, we combine quality education with flexibility through our engaging online courses.<br> Our mission is to empower students everywhere with knowledge, creativity, and confidence—anytime, anywhere.</P>
+<div class="icons">
+    <i class="fa-brands fa-facebook"></i>
+    <i class="fa-brands fa-x-twitter"></i>
+    <i class="fa-brands fa-instagram"></i>
+    <i class="fa-brands fa-tiktok"></i>
+</div>
+</section>
+
+
+
+
+
+
+  <! ---------javascript for toggle menu ---------| -->
+   <script>
+    var navLinks = document.getElementById("navLinks");
+    function showMenu (){
+        navLinks.style.right = "0";
+    }
+    function hideMenu (){
+        navLinks.style.right = "-200PX";
+    }
+   </script>
+</body>
+</html>

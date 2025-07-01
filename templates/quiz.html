@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='quiz.css') }}">
+</head>
+<body>
+    <div class="lg">
+    <a href="{{url_for('interface')}}"><img src="{{ url_for('static', filename='lg.png') }}" ></a>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div class="quiz-wrapper">
+        <h2>{{ question.question }}</h2>
+
+        {% if feedback %}
+            <div class="feedback-box {% if 'Wrong' in feedback %}wrong{% endif %}">
+                {{ feedback }}
+            </div>
+        {% endif %}
+
+        <form method="post" action="/answer">
+            {% for choice in question.choices %}
+                <label>
+                    <input type="radio" name="choice" value="{{ choice }}" required> {{ choice }}
+                </label><br>
+            {% endfor %}
+            <input type="hidden" name="q" value="{{ q }}">
+            <input type="hidden" name="score" value="{{ score }}">
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

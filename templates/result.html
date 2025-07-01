@@ -1,0 +1,16 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz Finished</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='quiz.css') }}">
+</head>
+<body>
+    <div class="lg">
+        <a href="{{url_for('interface')}}"><img src="{{ url_for('static', filename='lg.png') }}" ></a>
+    </div>
+    <h2>Quiz Completed!</h2>
+    <p>Your score: {{ score }} / {{ total }}</p>
+    <a href="/">Play Again</a>
+</body>
+</html>

@@ -1,0 +1,118 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='blog-courses.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" /></head>
+<body>
+<div class="container">
+   <section class="sub-header">
+       <nav>
+         <a href="{{url_for('interface')}}"><img src="{{ url_for('static', filename='lg.png') }}" ></a>
+         <div class="nav-links" id="navLinks">
+            <i class="fa fa-times" onclick="hideMenu()"></i>
+            <ul>
+                <li><a href="{{url_for('interface')}}">Home</a></li>
+                <li><a href="{{url_for('about')}}">About</a></li>
+                <li><a href="{{url_for('courses')}}">Course</a></li>
+                <li><a href="{{url_for('blog')}}">Blog</a></li>
+                <li><a href="{{url_for('contact')}}">Contact</a></li>
+            </ul>
+         </div>
+         <i class="fa fa-bars" onclick="showMenu()" ></i>
+       </nav>
+
+<h1> Our courses </h1>
+
+</div>
+<!-------------course--------->
+</div>
+<!-------------course--------->
+<section class="course">
+    <h1>courses we offer</h1>
+    <p>a complet collection of courses</p>
+        <a href="{{url_for('modele')}}">
+        <div class="course-col">
+        <h3>DUT first year</h3>
+        <p>start learning
+        </p>
+        </div>
+        </a>
+    
+        <div class="course-col"> 
+            <h3>DUT second year</h3>
+            <p>
+                start learning
+            </p>
+        </div>
+        <div class="course-col">
+            <h3> professional license </h3>
+            <p>
+                start learning
+            </p>
+        </div>
+        
+    </div>
+
+</section>
+
+<!----- facilities ----->
+<section class="facilities">
+    <h1>our facilities</h1>
+    <p> link between your education career and your personal life </p>
+    <div class="row">
+        <div class="facilities-col">
+            <img src="{{ url_for('static', filename='library.png') }}" alt="">
+            <h3>Hacktone</h3>
+            <p>  welcome to the 1st version of the hackatone dirocted by Mr HAKIM EL MASSARI <br>
+                Enter a world where code is culture, creativity is power, and the signal never sleeps.
+Unlock. Create. Disrupt.
+            </p>
+        </div>
+        <div class="facilities-col">
+            <img src="{{ url_for('static', filename='basketball.png') }}" alt="">
+            <h3>largest play ground</h3>
+            <p> Tempo Club is a dynamic football club where passion meets performance. We welcome students of all skill levels to train, compete, and grow together.
+
+                📅 Registration Date: April 20, 2025, at 11:00 AM
+                ⚽ Be part of the team—Join us now!. </p>
+        </div>
+        <div class="facilities-col">
+            <img src="{{ url_for('static', filename='cafeteria.png') }}" alt="">
+            <h3>tasty and healthy food</h3>
+            <p>  Need a break? Step into our cozy cafeteria — the perfect spot to recharge, relax, and connect.
+
+                We serve a variety of hot and cold beverages, from rich espresso to refreshing teas, alongside fresh pastries, healthy snacks, and daily specials. Whether you’re here for a quick coffee or a calm moment with your team, our space is designed for comfort and good vibes.
+            </p>
+        </div>
+    </div>
+</section>
+<!----- Footer ------>
+<section class="footer"> 
+    <h4>About US</h4>
+    <P>At BrightMinds Academy, we combine quality education with flexibility through our engaging online courses.<br> Our mission is to empower students everywhere with knowledge, creativity, and confidence—anytime, anywhere.</P>
+<div class="icons">
+    <i class="fa-brands fa-facebook"></i>
+    <i class="fa-brands fa-x-twitter"></i>
+    <i class="fa-brands fa-instagram"></i>
+    <i class="fa-brands fa-tiktok"></i>
+</div>
+</section>
+
+<!----javascript-->
+   <script>
+    var navLinks = document.getElementById("navLinks");
+    function showMenu (){
+        navLinks.style.right = "0";
+    }
+    function hideMenu (){
+        navLinks.style.right = "-200PX";
+    }
+   </script>
+</body>
+</html>

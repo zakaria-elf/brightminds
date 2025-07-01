@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nos Filières et Modules</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        :root {
+            --primary-color: #2c3e50;       /* Dark blue-gray - professional primary */
+            --secondary-color: #3498db;     /* Bright blue - for accents */
+            --light-color: #ecf0f1;         /* Light gray - for backgrounds */
+            --accent-color: #e74c3c;        /* Red - for important actions */
+            --text-color: #333333;          /* Dark gray - main text */
+            --bg-color: #ffffff;            /* White - clean background */
+            --success-color: #27ae60;       /* Green - for positive elements */
+            --border-color: #dfe6e9;       /* Light gray - for borders */
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 600;
+        }
+        
+        .subtitle {
+            font-style: italic;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .divider {
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            margin: 2rem 0;
+            border: none;
+            opacity: 0.5;
+        }
+        
+        .filiere-section {
+            margin-bottom: 3rem;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .filiere-title {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .filiere-title:hover {
+            background-color: #34495e; /* Slightly lighter than primary */
+        }
+        
+        .filiere-title h2 {
+            margin: 0;
+            font-weight: 500;
+            font-size: 1.5rem;
+        }
+        
+        .start-learning {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+        
+        .start-learning:hover {
+            background-color: #c0392b; /* Darker red */
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        
+        .modules-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            padding: 2rem;
+            background-color: var(--light-color);
+            border: 1px solid var(--border-color);
+            border-top: none;
+        }
+        
+        .module-card {
+            background-color: var(--bg-color);
+            padding: 1.5rem;
+            border-radius: 6px;
+            border-left: 4px solid var(--secondary-color);
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .module-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-left-color: var(--accent-color);
+        }
+        
+        .module-card h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+        
+        .module-card p {
+            color: #7f8c8d; /* Gray for secondary text */
+            margin-bottom: 0;
+            font-size: 0.95rem;
+        }
+        
+        @media (max-width: 768px) {
+            .modules-container {
+                grid-template-columns: 1fr;
+                padding: 1.5rem;
+            }
+            
+            .filiere-title {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .start-learning {
+                margin-top: 1rem;
+                align-self: flex-end;
+            }
+        }
+                
+        /*------------brightmind_logo---------*/
+  nav img { 
+    width: 150px;
+  }
+  .footer {
+  /*position: fixed;*/
+  bottom: 0;
+  left: 0;
+  height: 15%;
+  width: 100%;
+  background-color: #f1f1f1; 
+  text-align: center;
+  padding: 10px 0;
+}
+    </style>
+    
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="{{url_for('interface')}}"><img src="{{ url_for('static', filename='lg.png') }}" ></a>
+                <div class="nav-links" id="navLinks">
+            </nav>
+            <h1>Courses we offer</h1>
+            <p class="subtitle">les courses offerts par chaque filière</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <hr class="divider">
+        
+        <section class="filiere-section">
+            <div class="filiere-title">
+                <h2>data engineering 1st Y</h2>
+                <a href="{{url_for('courses')}}"><button class="start-learning">start learning</button></a>
+            </div>
+            <div class="modules-container">
+                <div class="module-card">
+                    <h3>Mathématiques Fondamentales</h3>
+                    <p>Algèbre linéaire, Analyse, Probabilités</p>
+                </div>
+                <div class="module-card">
+                    <h3>Bases de Données</h3>
+                    <p>SQL, Modélisation, Administration</p>
+                </div>
+                <div class="module-card">
+                    <h3>Réseaux Informatique</h3>
+                    <p>la structure d'un réseau informatique , Protocoles</p>
+                </div>
+                <div class="module-card">
+                    <h3>Algorithmique & C Fondamentales</h3>
+                    <p>Structures de données, Complexité</p>
+                </div>
+                <div class="module-card">
+                    <h3>Développement Web</h3>
+                    <p>html/css, JavaScript, php/flask</p>
+                </div>
+                <div class="module-card">
+                    <h3>Bases de Données Avancée</h3>
+                    <p>PL/SQL</p>
+                </div>
+            </div>
+        </section>
+        
+        <hr class="divider">
+        
+        <section class="filiere-section">
+            <div class="filiere-title">
+                <h2>Cybersécurité 1st Y</h2>
+                <a href="{{url_for('courses')}}"><button class="start-learning">start learning</button></a>
+            </div>
+            <div class="modules-container">
+                <div class="module-card">
+                    <h3>Développement Web</h3>
+                    <p>HTML/CSS, JavaScript, Frameworks</p>
+                </div>
+                <div class="module-card">
+                    <h3>Mathématiques Fondamentales</h3>
+                    <p>Algèbre linéaire, Analyse, Probabilités</p>
+                </div>
+                <div class="module-card">
+                    <h3>Bases de Données</h3>
+                    <p>SQL, Modélisation, Administration</p>
+                </div>
+                <div class="module-card">
+                    <h3>Réseaux Informatiques</h3>
+                    <p>Protocoles, Sécurité, Administration</p>
+                </div>
+                <div class="module-card">
+                    <h3>Cybersécurité</h3>
+                    <p>Pentesting, Cryptographie, RGPD</p>
+                </div>
+                <div class="module-card">
+                    <h3>systeme d'exploitation</h3>
+                    <p>Linux Fondamentales</p>
+                </div>
+                <div class="module-card">
+                    <h3>Programmation Avancée</h3>
+                    <p>POO, Python, C</p>
+                </div>
+            </div>
+        </section>
+        
+        <hr class="divider">
+        
+        <section class="filiere-section">
+            <div class="filiere-title">
+                <h2>Agro-Alimentaire 1st Y</h2>
+                <a href="{{url_for('courses')}}"><button class="start-learning">start learning</button></a>
+            </div>
+            <div class="modules-container">
+                <div class="module-card">
+                    <h3>math & Informatique</h3>
+                    <p>analyse & algebre</p>
+                </div>
+                <div class="module-card">
+                    <h3>chimie genral</h3>
+                    <p>les ractions chimique</p>
+                </div>
+                <div class="module-card">
+                    <h3>science du vivant</h3>
+                    <p>des rechetrches animaux et vegetaux</p>
+                </div>
+                <div class="module-card">
+                    <h3>Microbiologie appliquees</h3>
+                    <p>chimie Avancée "biochimie"</p>
+                </div>
+            </div>
+        </section>
+
+        <hr class="divider">
+        
+        <section class="filiere-section">
+            <div class="filiere-title">
+                <h2>Agronomie 1st Y</h2>
+                <button class="start-learning">start learning</button>
+            </div>
+            <div class="modules-container">
+                <div class="module-card">
+                    <h3>math & Informatique</h3>
+                    <p>analyse & algebre</p>
+                </div>
+                <div class="module-card">
+                    <h3>chimie genral</h3>
+                    <p>les ractions chimique</p>
+                </div>
+                <div class="module-card">
+                    <h3>science du vivant</h3>
+                    <p>des rechetrches animaux et vegetaux</p>
+                </div>
+                <div class="module-card">
+                    <h3>production vegetale et annimal</h3>
+                    <p>agroecologie & agriculture biologique"</p>
+                </div>
+                <div class="module-card">
+                    <h3>Science du sol</h3>
+                    <p>system d'irrigation , fertilisation</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="footer"> 
+            <h4>About US</h4>
+            <P>At BrightMinds Academy, we combine quality education with flexibility through our engaging online courses.<br> Our mission is to empower students everywhere with knowledge, creativity, and confidence—anytime, anywhere.</P>
+        <div class="icons">
+            <i class="fa-brands fa-facebook"></i>
+            <i class="fa-brands fa-x-twitter"></i>
+            <i class="fa-brands fa-instagram"></i>
+            <i class="fa-brands fa-tiktok"></i>
+        </div>
+        </section>
+        
+       
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Animation pour les boutons "start learning"
+                const startLearningButtons = document.querySelectorAll('.start-learning');
+                
+                startLearningButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const filiereTitle = this.parentElement.querySelector('h2').textContent;
+                        alert(`Vous avez cliqué sur "start learning" pour la filière : ${filiereTitle}`);
+                    });
+                });
+                
+                // Animation pour les cartes de modules
+                const moduleCards = document.querySelectorAll('.module-card');
+                
+                moduleCards.forEach(card => {
+                    card.addEventListener('mouseenter', function() {
+                        this.style.borderLeftColor = '#940918';
+                    });
+                    
+                    card.addEventListener('mouseleave', function() {
+                        this.style.borderLeftColor = '#247935';
+                    });
+                });
+            });
+        </script>
+</body>
+</html>
